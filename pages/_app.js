@@ -17,7 +17,7 @@ export default function App({
   const router = useRouter();
   const LayoutComponent = router.pathname.startsWith(`/auth`)
     ? React.Fragment
-    : React.Layout;
+    : Layout;
 
   return getLayout(
     <CacheProvider value={emotionCache}>
