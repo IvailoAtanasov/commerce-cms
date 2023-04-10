@@ -24,5 +24,6 @@ const AuthLayout = ({ children }) => {
     </Box>
   );
 };
+//test
 
 export default AuthLayout;
