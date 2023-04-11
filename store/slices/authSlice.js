@@ -26,12 +26,7 @@ export const signUp = createAsyncThunk(
         },
       });
     } catch (error) {
-      const message =
-        (error.response && error.response.data && error.response.message) ||
-        error.message ||
-        error.toString();
-      console.log(message);
-      return thunkAPI.rejectWithValue(message);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

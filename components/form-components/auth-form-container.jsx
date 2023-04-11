@@ -77,14 +77,15 @@ const AuthConteiner = ({
       >
         {error && (
           <Alert severity="error">
-            {message}
-            {/* {authError.name === "NotAuthorizedException"
+            {message.name === "NotAuthorizedException"
               ? "Невалидно потребителско име или парола"
-              : authError.name === "CodeMismatchException"
+              : message.name === "CodeMismatchException"
               ? "Грешен код за потвърждение"
-              : authError.name === "InvalidPasswordException"
+              : message.name === "InvalidPasswordException"
               ? "Използвайте парола с повече от 8 символа, малки и големи букви и специални символи"
-              : "Нещо се обърка... Опитай пак :)"} */}
+              : message.name === "UsernameExistsException"
+              ? "Съществува потребител с такъв имейл адрес"
+              : "Нещо се обърка... Опитай пак :)"}
           </Alert>
         )}
         {children}
