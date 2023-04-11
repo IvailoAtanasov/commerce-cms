@@ -1,29 +1,71 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { Auth } from "aws-amplify";
 
 const initialState = {
   user: null,
-  authError: null,
-  authGroups: [],
+  error: false,
+  success: false,
+  isLoading: false,
+  message: "",
 };
+
+//Register user
+export const signUp = createAsyncThunk(
+  "auth/signUp",
+  async ({ email, password }, thunkAPI) => {
+    try {
+      return await Auth.signUp({
+        username: email,
+        password,
+        attributes: {
+          email,
+        },
+        autoSignIn: {
+          // optional - enables auto sign in after user is confirmed
+          enabled: true,
+        },
+      });
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.response.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setActiveUser: (state, action) => {
-      state.user = action.payload;
+    reset: (state) => {
+      (state.isLoading = false),
+        (state.error = false),
+        (state.success = false),
+        (state.message = "");
     },
-
-    setAuthError: (state, action) => {
-      state.authError = action.payload;
-    },
-    setAtuhGroups: (state, action) => {
-      state.authGroups = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(signUp.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signUp.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = true;
+        state.user = action.payload;
+      })
+      .addCase(signUp.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = action.payload;
+      });
   },
 });
 
-export const { setActiveUser, setAuthError, setAtuhGroups } = authSlice.actions;
+export const { reset } = authSlice.actions;
 
 export const selectUser = (state) => state.user;
 export default authSlice.reducer;

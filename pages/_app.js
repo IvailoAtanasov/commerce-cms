@@ -7,8 +7,8 @@ import Layout from "@/layouts/Layout";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "@/utils/theme";
 import { PersistGate } from "redux-persist/integration/react";
-import { persistStore } from "redux-persist";
-import store from "@/store/store";
+
+import { store, persistor } from "@/store/store";
 import { Provider } from "react-redux";
 import { Amplify } from "aws-amplify";
 import awsExports from "../src/aws-exports";
@@ -16,8 +16,6 @@ import awsExports from "../src/aws-exports";
 const clientSideEmotionCache = createEmotionCache();
 
 Amplify.configure({ ...awsExports, ssr: true });
-
-let persistor = persistStore(store);
 
 export default function App({
   Component,

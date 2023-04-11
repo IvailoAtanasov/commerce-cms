@@ -1,10 +1,16 @@
 import React from "react";
 import { Box, Avatar, Typography, Alert } from "@mui/material";
 
-const AuthConteiner = ({ icon, title, children, handleSubmit, onSubmit }) => {
-  // TODO  const authError = useSelector(selectAuthError);
-  const authError = false;
-
+const AuthConteiner = ({
+  icon,
+  title,
+  children,
+  handleSubmit,
+  onSubmit,
+  success,
+  error,
+  message,
+}) => {
   return (
     <Box
       sx={{
@@ -69,15 +75,16 @@ const AuthConteiner = ({ icon, title, children, handleSubmit, onSubmit }) => {
         onSubmit={handleSubmit(onSubmit)}
         sx={{ mt: 1 }}
       >
-        {authError && (
+        {error && (
           <Alert severity="error">
-            {authError.name === "NotAuthorizedException"
+            {message}
+            {/* {authError.name === "NotAuthorizedException"
               ? "Невалидно потребителско име или парола"
               : authError.name === "CodeMismatchException"
               ? "Грешен код за потвърждение"
               : authError.name === "InvalidPasswordException"
               ? "Използвайте парола с повече от 8 символа, малки и големи букви и специални символи"
-              : "Нещо се обърка... Опитай пак :)"}
+              : "Нещо се обърка... Опитай пак :)"} */}
           </Alert>
         )}
         {children}

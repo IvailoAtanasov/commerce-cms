@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import AuthConteiner from "@/components/form-components/auth-form-container";
 import IconInput from "@/components/form-components/icon-input";
@@ -20,7 +20,27 @@ import { signUpValidationSchema } from "@/utils/validation-schema";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { useSelector, useDispatch } from "react-redux";
+import { signUp, reset } from "@/store/slices/authSlice";
+import { useRouter } from "next/router";
+
 const SignUp = () => {
+  const router = useRouter();
+
+  const dispatch = useDispatch();
+
+  const { user, isLoading, error, success, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (success) {
+      // || user
+      router.push("/");
+    }
+    dispatch(reset());
+  }, [user, success, dispatch, router]);
+
   const {
     control,
     handleSubmit,
@@ -30,7 +50,7 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    dispatch(signUp(data));
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -39,6 +59,9 @@ const SignUp = () => {
     <AuthConteiner
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
+      error={error}
+      success={success}
+      message={message}
       title="Създай нов профил"
       icon={
         <LockPersonOutlinedIcon
@@ -73,9 +96,13 @@ const SignUp = () => {
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-                <VisibilityIcon sx={{ color: "common.white" }} />
+                <VisibilityIcon
+                  sx={{ color: "common.white", fontSize: "1rem" }}
+                />
               ) : (
-                <VisibilityOffIcon sx={{ color: "common.white" }} />
+                <VisibilityOffIcon
+                  sx={{ color: "common.white", fontSize: "1rem" }}
+                />
               )}
             </InputAdornment>
           ),
@@ -104,9 +131,13 @@ const SignUp = () => {
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-                <VisibilityIcon sx={{ color: "common.white" }} />
+                <VisibilityIcon
+                  sx={{ color: "common.white", fontSize: "1rem" }}
+                />
               ) : (
-                <VisibilityOffIcon sx={{ color: "common.white" }} />
+                <VisibilityOffIcon
+                  sx={{ color: "common.white", fontSize: "1rem" }}
+                />
               )}
             </InputAdornment>
           ),
@@ -121,7 +152,7 @@ const SignUp = () => {
           }}
         />
       </IconInput>
-      <SubmitButton title="Създай" />
+      <SubmitButton title="Създай" isLoading={isLoading} />
     </AuthConteiner>
   );
 };

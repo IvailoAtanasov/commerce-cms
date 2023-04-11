@@ -10,6 +10,12 @@
       "StackName": "amplify-commercecms-dev-225803",
       "StackId": "arn:aws:cloudformation:us-east-1:932740775394:stack/amplify-commercecms-dev-225803/0265c5e0-d7da-11ed-bac4-0ea7a19fdb21",
       "AmplifyAppId": "du6awiqpjw864"
+    },
+    "categories": {
+      "auth": {
+        "commercecms357fe22c357fe22c": {},
+        "userPoolGroups": {}
+      }
     }
   }
 }

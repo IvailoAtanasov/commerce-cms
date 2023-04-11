@@ -3,6 +3,7 @@ import authReducer from "./slices/authSlice";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
+import { persistStore } from "redux-persist";
 
 const persistConfig = {
   key: "root",
@@ -24,4 +25,6 @@ const store = configureStore({
     }),
 });
 
-export default store;
+let persistor = persistStore(store);
+
+export { store, persistor };
