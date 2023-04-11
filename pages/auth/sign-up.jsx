@@ -14,7 +14,7 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 
 import { useForm } from "react-hook-form";
 
-import { InputAdornment } from "@mui/material";
+import { InputAdornment, Box } from "@mui/material";
 
 import { signUpValidationSchema } from "@/utils/validation-schema";
 
@@ -52,7 +52,7 @@ const SignUp = () => {
       <IconInput control={control} name="email" label="Имейл" errors={errors}>
         <MailOutlineIcon
           sx={{
-            color: "action.active",
+            color: "common.white",
             mr: 2,
             my: 1,
             fontSize: "2rem",
@@ -72,14 +72,18 @@ const SignUp = () => {
               sx={{ cursor: "pointer" }}
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              {showPassword ? (
+                <VisibilityIcon sx={{ color: "common.white" }} />
+              ) : (
+                <VisibilityOffIcon sx={{ color: "common.white" }} />
+              )}
             </InputAdornment>
           ),
         }}
       >
         <LockOpenIcon
           sx={{
-            color: "action.active",
+            color: "common.white",
             mr: 2,
             my: 1,
             fontSize: "2rem",
@@ -99,14 +103,18 @@ const SignUp = () => {
               sx={{ cursor: "pointer" }}
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              {showPassword ? (
+                <VisibilityIcon sx={{ color: "common.white" }} />
+              ) : (
+                <VisibilityOffIcon sx={{ color: "common.white" }} />
+              )}
             </InputAdornment>
           ),
         }}
       >
         <ThumbUpOffAltIcon
           sx={{
-            color: "action.active",
+            color: "common.white",
             mr: 2,
             my: 1,
             fontSize: "2rem",

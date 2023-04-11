@@ -15,10 +15,17 @@ const IconInput = ({ control, name, label, errors, children, ...rest }) => {
           borderRadius: "0.25rem",
           mr: "1rem",
           fontWeight: "bold",
-          ".css-rmuvfc-MuiInputBase-input-MuiInput-input: focus": {
-            borderColor: "#ffffff",
-            borderWidth: "2px",
+
+          "& label.Mui-focused": {
+            color: "#ffffff",
           },
+          "& .MuiInput-underline:after": {
+            borderBottomColor: "#ffffff",
+          },
+          // ".css-11nj66u-MuiInputBase-input-MuiInput-input: focus": {
+          //   borderColor: "#ffffff",
+          //   borderWidth: "2px",
+          // },
         }}
         variant="standard"
         {...rest}

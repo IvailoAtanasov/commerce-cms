@@ -9,24 +9,26 @@ const AuthConteiner = ({ icon, title, children, handleSubmit, onSubmit }) => {
     <Box
       sx={{
         width: "25rem",
-        mt: 3,
+        mt: 1,
         backgroundColor: "rgba(255,255,255,0.13)",
         position: "absolute",
         transform: "translate(-50%, -50%)",
         top: "50%",
         left: "50%",
         borderRadius: "10px",
-        backdropFilter: "blur(10px)",
+        backdropFilter: "blur(10px) ",
         border: "2px solid rgba(255,255,255,0.1)",
         p: "50px 15px",
 
         "@media only screen and (max-width: 600px)": {
-          width: "100vw",
+          width: "90vw",
           maxHeight: "100vh",
           backdropFilter: "none",
           backgroundColor: "transparent",
           border: "none",
-          top: "35%",
+          top: "40%",
+          p: "50px 0px",
+          m: 0,
         },
       }}
     >
@@ -41,7 +43,7 @@ const AuthConteiner = ({ icon, title, children, handleSubmit, onSubmit }) => {
           transform: "translate(-50%, -50%)",
           background: "#ffffff",
           "@media only screen and (max-width: 600px)": {
-            top: 90,
+            top: 105,
           },
         }}
       >
@@ -55,7 +57,7 @@ const AuthConteiner = ({ icon, title, children, handleSubmit, onSubmit }) => {
           justifyContent: "center",
           marginTop: "0.5rem",
           "@media only screen and (max-width: 600px)": {
-            mt: "7rem",
+            mt: "10rem",
           },
         }}
       >

@@ -10,10 +10,11 @@ export const SubmitButton = ({ title }) => {
       sx={{
         mt: 3,
         mb: 2,
-        backgroundColor: "#A40030 !important",
+        backgroundColor: "#85001C !important",
         borderRadius: "0",
+
         "&:hover": {
-          backgroundColor: "#480004 !important",
+          backgroundColor: "#A40030 !important",
         },
       }}
     >
