@@ -7,6 +7,7 @@ const initialState = {
   success: false,
   isLoading: false,
   message: "",
+  userGroups: [],
 };
 
 const authSlice = createSlice({
