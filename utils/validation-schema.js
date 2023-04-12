@@ -61,3 +61,7 @@ export const ConfirmPasswordValidationSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Паролите не съвпадат")
     .required("Това поле е задължително"),
 });
+
+export const ConfirmSignUpSchema = yup.object().shape({
+  code: yup.string().required("Това поле е задължително"),
+});

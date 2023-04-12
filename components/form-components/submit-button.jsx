@@ -16,7 +16,7 @@ export const SubmitButton = ({ title, isLoading }) => {
           borderRadius: "0",
 
           "&:hover": {
-            backgroundColor: "#A40030 !important",
+            backgroundColor: isLoading ? grey[400] : "#A40030 !important",
           },
         }}
       >

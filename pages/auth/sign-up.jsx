@@ -21,7 +21,8 @@ import { signUpValidationSchema } from "@/utils/validation-schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useSelector, useDispatch } from "react-redux";
-import { signUp, reset } from "@/store/slices/authSlice";
+import { reset } from "@/store/slices/authSlice";
+import { signUp } from "@/store/thunks/authThunk";
 import { useRouter } from "next/router";
 
 const SignUp = () => {
@@ -34,9 +35,8 @@ const SignUp = () => {
   );
 
   useEffect(() => {
-    if (success) {
-      // || user
-      router.push("/");
+    if (success && !user.userConfirmed) {
+      router.push("/auth/confirm-sign-up");
     }
     dispatch(reset());
   }, [user, success, dispatch, router]);

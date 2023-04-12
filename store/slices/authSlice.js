@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Auth } from "aws-amplify";
+import { createSlice } from "@reduxjs/toolkit";
+import { signUp, confirmSignUp, resendConfirmation } from "../thunks/authThunk";
 
 const initialState = {
   user: null,
@@ -8,28 +8,6 @@ const initialState = {
   isLoading: false,
   message: "",
 };
-
-//Register user
-export const signUp = createAsyncThunk(
-  "auth/signUp",
-  async ({ email, password }, thunkAPI) => {
-    try {
-      return await Auth.signUp({
-        username: email,
-        password,
-        attributes: {
-          email,
-        },
-        autoSignIn: {
-          // optional - enables auto sign in after user is confirmed
-          enabled: true,
-        },
-      });
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
 
 const authSlice = createSlice({
   name: "auth",
@@ -53,6 +31,30 @@ const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(signUp.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = action.payload;
+      })
+      .addCase(resendConfirmation.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(resendConfirmation.fulfilled, (state) => {
+        state.isLoading = false;
+        state.success = true;
+      })
+      .addCase(resendConfirmation.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = action.payload;
+      })
+      .addCase(confirmSignUp.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(confirmSignUp.fulfilled, (state) => {
+        state.isLoading = false;
+        state.success = true;
+      })
+      .addCase(confirmSignUp.rejected, (state, action) => {
         state.isLoading = false;
         state.error = true;
         state.message = action.payload;
