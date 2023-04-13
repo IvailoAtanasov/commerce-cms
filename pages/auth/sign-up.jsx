@@ -15,7 +15,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 
 import { useForm } from "react-hook-form";
 
-import { InputAdornment, Button } from "@mui/material";
+import { InputAdornment, Typography } from "@mui/material";
 
 import { signUpValidationSchema } from "@/utils/validation-schema";
 
@@ -26,6 +26,8 @@ import { reset } from "@/store/slices/authSlice";
 import { signUp } from "@/store/thunks/authThunk";
 import { useRouter } from "next/router";
 import IconButton from "@/components/form-components/icon-button";
+import { Auth } from "aws-amplify";
+import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
 
 const SignUp = () => {
   const router = useRouter();
@@ -37,6 +39,7 @@ const SignUp = () => {
   );
 
   useEffect(() => {
+    console.log("userCon", userConfirmed);
     if (success && !userConfirmed) {
       router.push("/auth/confirm-sign-up");
     }
@@ -56,6 +59,18 @@ const SignUp = () => {
   };
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const googleLogin = async () => {
+    await Auth.federatedSignIn({
+      provider: CognitoHostedUIIdentityProvider.Google,
+    })
+      .then((user) => {
+        console.log(user);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <AuthConteiner
@@ -147,11 +162,18 @@ const SignUp = () => {
         />
       </IconInput>
       <SubmitButton title="Създай профил" isLoading={isLoading} />
+      <Typography
+        sx={{ color: "#ffffff", mb: 2 }}
+        variant="body1"
+        align="center"
+      >
+        или
+      </Typography>
 
       <IconButton
         title="Продължи с Google"
         isLoading={isLoading}
-        onClick={() => console.log("google")}
+        onClick={googleLogin}
         startIcon={
           <GoogleIcon
             sx={{

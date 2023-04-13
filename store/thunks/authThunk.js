@@ -46,3 +46,15 @@ export const confirmSignUp = createAsyncThunk(
     }
   }
 );
+
+// SignIn
+export const signIn = createAsyncThunk(
+  "auth/signIn",
+  async ({ email, password }, thunkAPI) => {
+    try {
+      return await Auth.signIn(email, password);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);

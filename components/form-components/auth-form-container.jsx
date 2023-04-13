@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Typography, Alert } from "@mui/material";
 
 const AuthConteiner = ({
-  icon,
   title,
   children,
   handleSubmit,
@@ -11,6 +10,7 @@ const AuthConteiner = ({
   error,
   message,
 }) => {
+  console.log(message);
   return (
     <Box
       sx={{

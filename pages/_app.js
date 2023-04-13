@@ -13,6 +13,8 @@ import { Provider } from "react-redux";
 import { Amplify } from "aws-amplify";
 import awsExports from "../src/aws-exports";
 
+import AuthComponent from "@/components/common/auth";
+
 const clientSideEmotionCache = createEmotionCache();
 
 Amplify.configure({ ...awsExports, ssr: true });
@@ -34,6 +36,7 @@ export default function App({
         <CacheProvider value={emotionCache}>
           <ThemeProvider theme={theme}>
             <LayoutComponent>
+              <AuthComponent />
               <Component {...pageProps} />
             </LayoutComponent>
           </ThemeProvider>

@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signUp, confirmSignUp, resendConfirmation } from "../thunks/authThunk";
+import {
+  signUp,
+  confirmSignUp,
+  resendConfirmation,
+  signIn,
+} from "../thunks/authThunk";
 
 const initialState = {
   username: null,
@@ -34,7 +39,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.success = true;
         state.username = action.payload.user.username;
-        state.userConfirmed = action.payload.user.userConfirmed;
+        state.userConfirmed = action.payload.userConfirmed;
       })
       .addCase(signUp.rejected, (state, action) => {
         state.isLoading = false;
@@ -61,6 +66,21 @@ const authSlice = createSlice({
         state.success = true;
       })
       .addCase(confirmSignUp.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = action.payload;
+      })
+      .addCase(signIn.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signIn.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = true;
+        state.username = action.payload.attributes.email;
+        state.userGroups =
+          action.payload.signInUserSession.idToken.payload["cognito:groups"];
+      })
+      .addCase(signIn.rejected, (state, action) => {
         state.isLoading = false;
         state.error = true;
         state.message = action.payload;

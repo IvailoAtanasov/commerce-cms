@@ -15,7 +15,10 @@
         "signupAttributes": [
           "EMAIL"
         ],
-        "socialProviders": [],
+        "socialProviders": [
+          "FACEBOOK",
+          "GOOGLE"
+        ],
         "usernameAttributes": [
           "EMAIL"
         ],
@@ -41,6 +44,24 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Cognito-UserPool-Groups"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_auth_commercecms357fe22c357fe22c_facebookAppId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "commercecms357fe22c357fe22c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_commercecms357fe22c357fe22c_googleClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "commercecms357fe22c357fe22c"
+        }
+      ]
     }
   }
 }

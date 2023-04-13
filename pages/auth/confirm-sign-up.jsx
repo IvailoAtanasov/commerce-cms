@@ -30,6 +30,7 @@ const ConfirmSignUp = () => {
     useSelector((state) => state.auth);
 
   const email = username;
+  console.log("username:", email);
 
   const onSubmit = async (data) => {
     data["username"] = email;

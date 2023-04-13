@@ -14,15 +14,15 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 
 import { useForm } from "react-hook-form";
 
-import { InputAdornment, Button } from "@mui/material";
+import { InputAdornment, Typography } from "@mui/material";
 
-import { signUpValidationSchema } from "@/utils/validation-schema";
+import { signInValidationSchema } from "@/utils/validation-schema";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useSelector, useDispatch } from "react-redux";
 import { reset } from "@/store/slices/authSlice";
-import { signUp } from "@/store/thunks/authThunk";
+import { signIn } from "@/store/thunks/authThunk";
 import { useRouter } from "next/router";
 import IconButton from "@/components/form-components/icon-button";
 
@@ -35,27 +35,26 @@ const SignIn = () => {
 
   const dispatch = useDispatch();
 
-  const { userConfirmed, isLoading, error, success, message } = useSelector(
+  const { isLoading, error, success, message } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
-    if (success && !userConfirmed) {
-      router.push("/auth/confirm-sign-up");
+    if (success) {
+      dispatch(reset());
     }
-    dispatch(reset());
-  }, [userConfirmed, success, dispatch, router]);
+  }, [success, dispatch]);
 
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(signUpValidationSchema),
+    resolver: yupResolver(signInValidationSchema),
   });
 
   const onSubmit = async (data) => {
-    dispatch(signUp(data));
+    dispatch(signIn(data));
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -116,6 +115,14 @@ const SignIn = () => {
       </IconInput>
 
       <SubmitButton title="Вход" isLoading={isLoading} />
+
+      <Typography
+        sx={{ color: "#ffffff", mb: 2 }}
+        variant="body1"
+        align="center"
+      >
+        или
+      </Typography>
 
       <IconButton
         title="Продължи с Google"

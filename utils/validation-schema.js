@@ -19,8 +19,12 @@ export const signUpValidationSchema = yup.object().shape({
     .required("Това поле е задължително"),
 });
 
-export const loginValidationSchema = yup.object().shape({
-  username: yup.string().required("Това поле е задължително"),
+export const signInValidationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Полето трябва да съдържа валиден имайл адрес")
+    .max(255)
+    .required("Това поле е задължително"),
   password: yup
     .string("Паролата")
     .min(6, "Паролата трябва съдържа повече от 6 символа")

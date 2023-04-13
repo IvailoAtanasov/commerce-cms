@@ -13,7 +13,10 @@
     },
     "categories": {
       "auth": {
-        "commercecms357fe22c357fe22c": {},
+        "commercecms357fe22c357fe22c": {
+          "facebookAppId": "770059618043643",
+          "googleClientId": "145917194886-k9na0slih9h66hbuvb0tlnsv2momclqp.apps.googleusercontent.com"
+        },
         "userPoolGroups": {}
       }
     }

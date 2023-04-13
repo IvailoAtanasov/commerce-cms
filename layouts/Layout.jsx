@@ -3,8 +3,9 @@ const Layout = ({ children }) => {
     <>
       {/* <SideBar>
           <Navbar />
-          <main>{children}</main>
+          
         </SideBar> */}
+      <main>{children}</main>
     </>
   );
 };
