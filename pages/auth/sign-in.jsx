@@ -9,7 +9,6 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
@@ -27,7 +26,11 @@ import { signUp } from "@/store/thunks/authThunk";
 import { useRouter } from "next/router";
 import IconButton from "@/components/form-components/icon-button";
 
-const SignUp = () => {
+import { Grid, Box } from "@mui/material";
+
+import Link from "next/link";
+
+const SignIn = () => {
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -64,7 +67,7 @@ const SignUp = () => {
       error={error}
       success={success}
       message={message}
-      title="Регистрация"
+      title="Вход"
     >
       <IconInput control={control} name="email" label="Имейл" errors={errors}>
         <MailOutlineIcon
@@ -111,42 +114,8 @@ const SignUp = () => {
           }}
         />
       </IconInput>
-      <IconInput
-        control={control}
-        name="confirmPassword"
-        label="Потвърди парола"
-        errors={errors}
-        type={showPassword ? "text" : "password"}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment
-              position="end"
-              sx={{ cursor: "pointer" }}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? (
-                <VisibilityIcon
-                  sx={{ color: "common.white", fontSize: "1rem" }}
-                />
-              ) : (
-                <VisibilityOffIcon
-                  sx={{ color: "common.white", fontSize: "1rem" }}
-                />
-              )}
-            </InputAdornment>
-          ),
-        }}
-      >
-        <ThumbUpOffAltIcon
-          sx={{
-            color: "common.white",
-            mr: 2,
-            my: 1,
-            fontSize: "2rem",
-          }}
-        />
-      </IconInput>
-      <SubmitButton title="Създай профил" isLoading={isLoading} />
+
+      <SubmitButton title="Вход" isLoading={isLoading} />
 
       <IconButton
         title="Продължи с Google"
@@ -179,12 +148,29 @@ const SignUp = () => {
           />
         }
       />
+
+      <Grid container>
+        <Grid item xs={6}>
+          <Box sx={{ mt: 1 }}>
+            <Link href="/auth/forgotten-password" style={{ color: "#ffffff" }}>
+              Забравена парола?
+            </Link>
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box sx={{ mt: 1 }} display="flex" justifyContent="flex-end">
+            <Link href="/auth/sign-up" style={{ color: "#ffffff" }}>
+              Нямате профил?
+            </Link>
+          </Box>
+        </Grid>
+      </Grid>
     </AuthConteiner>
   );
 };
 
-export default SignUp;
+export default SignIn;
 
-SignUp.getLayout = function getLayout(auth) {
+SignIn.getLayout = function getLayout(auth) {
   return <AuthLayout>{auth}</AuthLayout>;
 };

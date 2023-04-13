@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Avatar, Typography, Alert } from "@mui/material";
+import { Box, Typography, Alert } from "@mui/material";
 
 const AuthConteiner = ({
   icon,
@@ -14,47 +14,30 @@ const AuthConteiner = ({
   return (
     <Box
       sx={{
-        width: "25rem",
-        mt: 1,
-        backgroundColor: "rgba(255,255,255,0.13)",
-        position: "absolute",
         transform: "translate(-50%, -50%)",
+        position: "absolute",
         top: "50%",
         left: "50%",
-        borderRadius: "10px",
-        backdropFilter: "blur(10px) ",
-        border: "2px solid rgba(255,255,255,0.1)",
         p: "50px 15px",
+        width: "25rem",
+        background: "rgba(255, 255, 255, 0.25)",
+        borderRadius: "16px",
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        backdropFilter: "blur(6.5px)",
+        "&:-webkit-backdrop-filter": "blur(6.5px)",
+        border: "1px solid rgba(255, 255, 255, 0.71)",
 
         "@media only screen and (max-width: 600px)": {
-          width: "90vw",
-          maxHeight: "100vh",
-          backdropFilter: "none",
-          backgroundColor: "transparent",
+          width: "100vw",
+          height: "100vh",
+          background: "rgba(255, 255, 255, 0.1)",
+          backdropFilter: "blur(5px)",
+          borderRadius: "0px",
           border: "none",
-          top: "40%",
           p: "50px 0px",
-          m: 0,
         },
       }}
     >
-      <Avatar
-        sx={{
-          height: "6rem",
-          width: "6rem",
-          position: "absolute",
-          top: -8,
-          left: "50%",
-          right: 50,
-          transform: "translate(-50%, -50%)",
-          background: "#ffffff",
-          "@media only screen and (max-width: 600px)": {
-            top: 105,
-          },
-        }}
-      >
-        {icon}
-      </Avatar>
       <Typography
         variant="h5"
         sx={{
@@ -63,7 +46,7 @@ const AuthConteiner = ({
           justifyContent: "center",
           marginTop: "0.5rem",
           "@media only screen and (max-width: 600px)": {
-            mt: "10rem",
+            mt: "3rem",
           },
         }}
       >
@@ -88,7 +71,7 @@ const AuthConteiner = ({
               : "Нещо се обърка... Опитай пак :)"}
           </Alert>
         )}
-        {children}
+        <Box sx={{ ml: 1.5, mr: 1.5 }}>{children}</Box>
       </Box>
     </Box>
   );

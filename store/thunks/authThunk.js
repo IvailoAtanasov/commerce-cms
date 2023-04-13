@@ -26,7 +26,7 @@ export const signUp = createAsyncThunk(
 //resend confirmation code
 export const resendConfirmation = createAsyncThunk(
   "auth/resendConfirmation",
-  async ({ username }, thunkAPI) => {
+  async (username, thunkAPI) => {
     try {
       return await Auth.resendSignUp(username);
     } catch (error) {

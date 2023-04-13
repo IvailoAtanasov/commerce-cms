@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { signUp, confirmSignUp, resendConfirmation } from "../thunks/authThunk";
 
 const initialState = {
-  user: null,
+  username: null,
   error: false,
   success: false,
   isLoading: false,
   message: "",
   userGroups: [],
+  userConfirmed: false,
+  resendSuccess: false,
 };
 
 const authSlice = createSlice({
@@ -18,7 +20,9 @@ const authSlice = createSlice({
       (state.isLoading = false),
         (state.error = false),
         (state.success = false),
-        (state.message = "");
+        (state.message = ""),
+        (state.userConfirmed = false),
+        (state.resendSuccess = false);
     },
   },
   extraReducers: (builder) => {
@@ -29,7 +33,8 @@ const authSlice = createSlice({
       .addCase(signUp.fulfilled, (state, action) => {
         state.isLoading = false;
         state.success = true;
-        state.user = action.payload;
+        state.username = action.payload.user.username;
+        state.userConfirmed = action.payload.user.userConfirmed;
       })
       .addCase(signUp.rejected, (state, action) => {
         state.isLoading = false;
@@ -41,7 +46,7 @@ const authSlice = createSlice({
       })
       .addCase(resendConfirmation.fulfilled, (state) => {
         state.isLoading = false;
-        state.success = true;
+        state.resendSuccess = true;
       })
       .addCase(resendConfirmation.rejected, (state, action) => {
         state.isLoading = false;

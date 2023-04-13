@@ -19,18 +19,17 @@ import { reset } from "@/store/slices/authSlice";
 import { confirmSignUp, resendConfirmation } from "@/store/thunks/authThunk";
 import { useRouter } from "next/router";
 
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Alert } from "@mui/material";
 
 const ConfirmSignUp = () => {
   const router = useRouter();
 
   const dispatch = useDispatch();
 
-  const { user, isLoading, error, success, message } = useSelector(
-    (state) => state.auth
-  );
+  const { username, isLoading, error, success, message, resendSuccess } =
+    useSelector((state) => state.auth);
 
-  const email = user?.user?.username;
+  const email = username;
 
   const onSubmit = async (data) => {
     data["username"] = email;
@@ -54,8 +53,8 @@ const ConfirmSignUp = () => {
     if (success) {
       router.push("/");
     }
-    dispatch(reset());
-  }, [user, success, dispatch, router]);
+    //dispatch(reset());
+  }, [username, success, dispatch, router, resendSuccess]);
 
   return (
     <AuthConteiner
@@ -74,12 +73,15 @@ const ConfirmSignUp = () => {
         />
       }
     >
+      {resendSuccess && (
+        <Alert severity="success">Изпратихме нов код за потвърждение</Alert>
+      )}
       <Typography
         variant="h6"
         color="common.white"
         sx={{ mt: 2, textAlign: "center" }}
       >
-        Моля въведи кодът за потвърждение получен на посочения от теб имейл
+        Моля, въведи кодa за потвърждение, получен на посочения от теб имейл
         адрес.
       </Typography>
 

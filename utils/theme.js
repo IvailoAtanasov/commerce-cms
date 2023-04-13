@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material/styles";
 export const theme = createTheme({
   palette: {
     error: {
-      main: "#FF7DA9",
+      main: "#ff8164",
     },
   },
   components: {
