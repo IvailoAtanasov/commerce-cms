@@ -69,3 +69,31 @@ export const ConfirmPasswordValidationSchema = yup.object().shape({
 export const ConfirmSignUpSchema = yup.object().shape({
   code: yup.string().required("Това поле е задължително"),
 });
+
+export const forgottenPassowrdSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Полето трябва да съдържа валиден имайл адрес")
+    .max(255)
+    .required("Това поле е задължително"),
+});
+
+export const forgottenPasswordSubmitSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Полето трябва да съдържа валиден имайл адрес")
+    .max(255)
+    .required("Това поле е задължително"),
+  code: yup.string().required("Това поле е задължително"),
+  password: yup
+    .string("Паролата")
+    .min(6, "Паролата трябва съдържа повече от 6 символа")
+    .max(32)
+    .required("Това поле е задължително"),
+  confirmPassword: yup
+    .string()
+    .min(6, "Паролата трябва съдържа повече от 6 символа")
+    .max(32)
+    .oneOf([yup.ref("password"), null], "Паролите не съвпадат")
+    .required("Това поле е задължително"),
+});

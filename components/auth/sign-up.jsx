@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import AuthConteiner from "@/components/form-components/auth-form-container";
 import IconInput from "@/components/form-components/icon-input";
-import AuthLayout from "@/layouts/AuthLayout";
+
 import { SubmitButton } from "@/components/form-components/submit-button";
 
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -10,12 +10,12 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import GoogleIcon from "@mui/icons-material/Google";
-import FacebookIcon from "@mui/icons-material/Facebook";
+
+import { Grid } from "@mui/material";
 
 import { useForm } from "react-hook-form";
 
-import { InputAdornment, Typography } from "@mui/material";
+import { InputAdornment } from "@mui/material";
 
 import { signUpValidationSchema } from "@/utils/validation-schema";
 
@@ -25,9 +25,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { reset } from "@/store/slices/authSlice";
 import { signUp } from "@/store/thunks/authThunk";
 import { useRouter } from "next/router";
-import IconButton from "@/components/form-components/icon-button";
-import { Auth } from "aws-amplify";
-import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
+
+import { setAuthUi } from "@/store/slices/uiSlice";
+import TextButton from "../common/text-button";
 
 const SignUp = () => {
   const router = useRouter();
@@ -39,9 +39,8 @@ const SignUp = () => {
   );
 
   useEffect(() => {
-    console.log("userCon", userConfirmed);
     if (success && !userConfirmed) {
-      router.push("/auth/confirm-sign-up");
+      dispatch(setAuthUi("confirmSignUp"));
     }
     dispatch(reset());
   }, [userConfirmed, success, dispatch, router]);
@@ -51,6 +50,11 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
     resolver: yupResolver(signUpValidationSchema),
   });
 
@@ -59,18 +63,6 @@ const SignUp = () => {
   };
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const googleLogin = async () => {
-    await Auth.federatedSignIn({
-      provider: CognitoHostedUIIdentityProvider.Google,
-    })
-      .then((user) => {
-        console.log(user);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
 
   return (
     <AuthConteiner
@@ -162,51 +154,21 @@ const SignUp = () => {
         />
       </IconInput>
       <SubmitButton title="Създай профил" isLoading={isLoading} />
-      <Typography
-        sx={{ color: "#ffffff", mb: 2 }}
-        variant="body1"
-        align="center"
-      >
-        или
-      </Typography>
-
-      <IconButton
-        title="Продължи с Google"
-        isLoading={isLoading}
-        onClick={googleLogin}
-        startIcon={
-          <GoogleIcon
-            sx={{
-              position: "absolute",
-              color: "#000000",
-              left: "1rem",
-              bottom: "20%",
+      <Grid container>
+        <Grid item xs={6}></Grid>
+        <Grid item xs={6}>
+          <TextButton
+            onClick={() => {
+              dispatch(setAuthUi("signIn"));
             }}
-          />
-        }
-      />
-
-      <IconButton
-        title="Продължи с Facebook"
-        isLoading={isLoading}
-        onClick={() => console.log("google")}
-        startIcon={
-          <FacebookIcon
-            sx={{
-              position: "absolute",
-              color: "#000000",
-              left: "1rem",
-              bottom: "20%",
-            }}
-          />
-        }
-      />
+            position="flex-end"
+          >
+            Вече имате профил?
+          </TextButton>
+        </Grid>
+      </Grid>
     </AuthConteiner>
   );
 };
 
 export default SignUp;
-
-SignUp.getLayout = function getLayout(auth) {
-  return <AuthLayout>{auth}</AuthLayout>;
-};

@@ -29,7 +29,7 @@ const IconButton = ({ title, isLoading, onClick, ...rest }) => {
           sx={{
             color: "#000000",
             position: "absolute",
-            top: "50%",
+            top: "30%",
             left: "50%",
             marginTop: "-10px",
             marginLeft: "-12px",

@@ -1,5 +1,6 @@
 import { Auth } from "aws-amplify";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
 
 //Register user
 export const signUp = createAsyncThunk(
@@ -53,6 +54,30 @@ export const signIn = createAsyncThunk(
   async ({ email, password }, thunkAPI) => {
     try {
       return await Auth.signIn(email, password);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+//forgot password
+export const forgottenPassword = createAsyncThunk(
+  "auth/forgottenPassword",
+  async ({ email }, thunkAPI) => {
+    try {
+      return await Auth.forgotPassword(email);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+//forgot password submit
+export const forgottenPasswordSubmit = createAsyncThunk(
+  "auth/forgottenPasswordSubmit",
+  async ({ email, code, password }, thunkAPI) => {
+    try {
+      return await Auth.forgotPasswordSubmit(email, code, password);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

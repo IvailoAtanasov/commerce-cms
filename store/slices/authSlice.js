@@ -4,17 +4,18 @@ import {
   confirmSignUp,
   resendConfirmation,
   signIn,
+  forgottenPassword,
+  forgottenPasswordSubmit,
 } from "../thunks/authThunk";
 
 const initialState = {
-  username: null,
   error: false,
   success: false,
   isLoading: false,
   message: "",
-  userGroups: [],
-  userConfirmed: false,
   resendSuccess: false,
+  userConfirmed: false,
+  username: null,
 };
 
 const authSlice = createSlice({
@@ -26,8 +27,10 @@ const authSlice = createSlice({
         (state.error = false),
         (state.success = false),
         (state.message = ""),
-        (state.userConfirmed = false),
         (state.resendSuccess = false);
+    },
+    setSocialLoading: (state, action) => {
+      state.isSocialLoading = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -73,14 +76,36 @@ const authSlice = createSlice({
       .addCase(signIn.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(signIn.fulfilled, (state, action) => {
+      .addCase(signIn.fulfilled, (state) => {
         state.isLoading = false;
         state.success = true;
-        state.username = action.payload.attributes.email;
-        state.userGroups =
-          action.payload.signInUserSession.idToken.payload["cognito:groups"];
       })
       .addCase(signIn.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = action.payload;
+      })
+      .addCase(forgottenPassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(forgottenPassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.success = true;
+      })
+      .addCase(forgottenPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = action.payload;
+      })
+
+      .addCase(forgottenPasswordSubmit.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(forgottenPasswordSubmit.fulfilled, (state) => {
+        state.isLoading = false;
+        state.success = true;
+      })
+      .addCase(forgottenPasswordSubmit.rejected, (state, action) => {
         state.isLoading = false;
         state.error = true;
         state.message = action.payload;
@@ -88,7 +113,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset, setSocialLoading } = authSlice.actions;
 
 export const selectUser = (state) => state.user;
 export default authSlice.reducer;

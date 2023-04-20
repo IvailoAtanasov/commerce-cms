@@ -17,8 +17,8 @@ export const theme = createTheme({
 
         input: {
           "&:-webkit-autofill": {
-            "-webkit-box-shadow": "none !important",
-            "-webkit-text-fill-color": "#ffffff !important",
+            WebkitBoxShadow: "none !important",
+            webkitTextFillColor: "#ffffff !important",
             transition: "background-color 5000s ease-in-out 0s;",
           },
         },

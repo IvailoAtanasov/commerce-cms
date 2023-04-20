@@ -24,17 +24,18 @@ const AuthConteiner = ({
         borderRadius: "16px",
         boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
         backdropFilter: "blur(6.5px)",
-        "&:-webkit-backdrop-filter": "blur(6.5px)",
+        "&:WebkitBackdropFilter": "blur(6.5px)",
         border: "1px solid rgba(255, 255, 255, 0.71)",
 
         "@media only screen and (max-width: 600px)": {
           width: "100vw",
-          height: "100vh",
+          height: "85vh",
           background: "rgba(255, 255, 255, 0.1)",
           backdropFilter: "blur(5px)",
           borderRadius: "0px",
           border: "none",
           p: "50px 0px",
+          overflow: "hidden",
         },
       }}
     >
@@ -60,13 +61,13 @@ const AuthConteiner = ({
       >
         {error && (
           <Alert severity="error">
-            {message.name === "NotAuthorizedException"
+            {message?.name === "NotAuthorizedException"
               ? "Невалидно потребителско име или парола"
-              : message.name === "CodeMismatchException"
+              : message?.name === "CodeMismatchException"
               ? "Грешен код за потвърждение"
-              : message.name === "InvalidPasswordException"
+              : message?.name === "InvalidPasswordException"
               ? "Използвайте парола с повече от 8 символа, малки и големи букви и специални символи"
-              : message.name === "UsernameExistsException"
+              : message?.name === "UsernameExistsException"
               ? "Съществува потребител с такъв имейл адрес"
               : "Нещо се обърка... Опитай пак :)"}
           </Alert>

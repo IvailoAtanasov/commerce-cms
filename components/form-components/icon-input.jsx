@@ -22,10 +22,6 @@ const IconInput = ({ control, name, label, errors, children, ...rest }) => {
           "& .MuiInput-underline:after": {
             borderBottomColor: "#ffffff",
           },
-          // ".css-11nj66u-MuiInputBase-input-MuiInput-input: focus": {
-          //   borderColor: "#ffffff",
-          //   borderWidth: "2px",
-          // },
         }}
         variant="standard"
         {...rest}

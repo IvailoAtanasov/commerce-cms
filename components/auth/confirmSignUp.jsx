@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import AuthConteiner from "@/components/form-components/auth-form-container";
 import IconInput from "@/components/form-components/icon-input";
-import AuthLayout from "@/layouts/AuthLayout";
+
 import { SubmitButton } from "@/components/form-components/submit-button";
 
 import LockPersonOutlinedIcon from "@mui/icons-material/LockPersonOutlined";
@@ -15,11 +15,12 @@ import { ConfirmSignUpSchema } from "@/utils/validation-schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useSelector, useDispatch } from "react-redux";
-import { reset } from "@/store/slices/authSlice";
+
 import { confirmSignUp, resendConfirmation } from "@/store/thunks/authThunk";
 import { useRouter } from "next/router";
 
-import { Button, Typography, Alert } from "@mui/material";
+import { Typography, Alert } from "@mui/material";
+import TextButton from "../common/text-button";
 
 const ConfirmSignUp = () => {
   const router = useRouter();
@@ -30,7 +31,6 @@ const ConfirmSignUp = () => {
     useSelector((state) => state.auth);
 
   const email = username;
-  console.log("username:", email);
 
   const onSubmit = async (data) => {
     data["username"] = email;
@@ -47,6 +47,9 @@ const ConfirmSignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      code: "",
+    },
     resolver: yupResolver(ConfirmSignUpSchema),
   });
 
@@ -54,8 +57,7 @@ const ConfirmSignUp = () => {
     if (success) {
       router.push("/");
     }
-    //dispatch(reset());
-  }, [username, success, dispatch, router, resendSuccess]);
+  }, [username, success, router, resendSuccess]);
 
   return (
     <AuthConteiner
@@ -102,26 +104,12 @@ const ConfirmSignUp = () => {
         />
       </IconInput>
       <SubmitButton title="Потвърди" isLoading={isLoading} />
-      <Button
-        onClick={resendCode}
-        variant="text"
-        sx={{
-          boxShadow: 0,
-          "&:hover": { backgroundColor: "transparent" },
-          backgroundColor: "transparent !important",
-          color: "#ffffff",
-          mt: 1,
-          textTransform: "none",
-        }}
-      >
+
+      <TextButton onClick={resendCode} position="flex-start">
         Изпрати нов код за верификация
-      </Button>
+      </TextButton>
     </AuthConteiner>
   );
 };
 
 export default ConfirmSignUp;
-
-ConfirmSignUp.getLayout = function getLayout(auth) {
-  return <AuthLayout>{auth}</AuthLayout>;
-};
