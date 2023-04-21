@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-commercecms-dev-225803-unauthRole",
       "StackName": "amplify-commercecms-dev-225803",
       "StackId": "arn:aws:cloudformation:us-east-1:932740775394:stack/amplify-commercecms-dev-225803/0265c5e0-d7da-11ed-bac4-0ea7a19fdb21",
-      "AmplifyAppId": "du6awiqpjw864"
+      "AmplifyAppId": "du6awiqpjw864",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-commercecms-dev-225803-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -18,6 +19,15 @@
           "googleClientId": "145917194886-k9na0slih9h66hbuvb0tlnsv2momclqp.apps.googleusercontent.com"
         },
         "userPoolGroups": {}
+      },
+      "function": {
+        "commercecms357fe22c357fe22cPostConfirmation": {
+          "deploymentBucketName": "amplify-commercecms-dev-225803-deployment",
+          "s3Key": "amplify-builds/commercecms357fe22c357fe22cPostConfirmation-634e66394276522b6551-build.zip"
+        }
+      },
+      "api": {
+        "commercecms": {}
       }
     }
   }

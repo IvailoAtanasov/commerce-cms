@@ -1,0 +1,16 @@
+type User
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Admins"] }
+      {
+        allow: owner
+        ownerField: "username"
+        operations: [create, read, update]
+      }
+    ]
+  ) {
+  id: ID!
+  username: String!
+  email: String!
+}

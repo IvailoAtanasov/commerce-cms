@@ -1,0 +1,16 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "commercecms357fe22c357fe22c",
+  "functionName": "commercecms357fe22c357fe22cPostConfirmation",
+  "resourceName": "commercecms357fe22c357fe22cPostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "C:\\snapshot\\repo\\build\\node_modules\\@aws-amplify\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "triggerEventPath": "PostConfirmation.event.json",
+  "roleName": "commercecms357fe22c357fe22cPostConfirmation",
+  "skipEdit": true
+}

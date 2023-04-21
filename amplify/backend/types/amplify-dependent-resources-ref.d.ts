@@ -1,4 +1,10 @@
 export type AmplifyDependentResourcesAttributes = {
+  "api": {
+    "commercecms": {
+      "GraphQLAPIEndpointOutput": "string",
+      "GraphQLAPIIdOutput": "string"
+    }
+  },
   "auth": {
     "commercecms357fe22c357fe22c": {
       "AppClientID": "string",
@@ -18,6 +24,15 @@ export type AmplifyDependentResourcesAttributes = {
       "BakersGroupRole": "string",
       "DecoratorsGroupRole": "string",
       "EmployeesGroupRole": "string"
+    }
+  },
+  "function": {
+    "commercecms357fe22c357fe22cPostConfirmation": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
     }
   }
 }

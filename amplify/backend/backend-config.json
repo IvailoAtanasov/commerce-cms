@@ -1,8 +1,44 @@
 {
+  "api": {
+    "commercecms": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "commercecms357fe22c357fe22c"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authcommercecms357fe22c357fe22c"
+            }
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
   "auth": {
     "commercecms357fe22c357fe22c": {
       "customAuth": false,
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "commercecms357fe22c357fe22cPostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -46,6 +82,13 @@
       "service": "Cognito-UserPool-Groups"
     }
   },
+  "function": {
+    "commercecms357fe22c357fe22cPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "parameters": {
     "AMPLIFY_auth_commercecms357fe22c357fe22c_facebookAppId": {
       "usedBy": [
@@ -60,6 +103,22 @@
         {
           "category": "auth",
           "resourceName": "commercecms357fe22c357fe22c"
+        }
+      ]
+    },
+    "AMPLIFY_function_commercecms357fe22c357fe22cPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "commercecms357fe22c357fe22cPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_commercecms357fe22c357fe22cPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "commercecms357fe22c357fe22cPostConfirmation"
         }
       ]
     }

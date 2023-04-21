@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "commercecms",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authcommercecms357fe22c357fe22c",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
